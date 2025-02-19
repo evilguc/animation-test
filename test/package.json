@@ -1,0 +1,26 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node simulation.ts",
+    "simulation": "ts-node simulation.ts",
+    "generate-jwt": "ts-node generate-jwt.ts",
+    "generate-character": "ts-node generate-character.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/node": "^22.13.4",
+    "@types/ws": "^8.5.14",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "ws": "^8.18.0"
+  }
+}

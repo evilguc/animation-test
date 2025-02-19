@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: Character Animation Service API
+  version: 1.0.0
+  description: API for managing real-time character animation sessions.
+
+servers:
+  - url: http://localhost:8787
+    description: Local Development Server
+  - url: https://your-cloudflare-worker.com
+    description: Cloudflare Deployed Worker
+
+paths:
+  /service-api/sessions/active:
+    get:
+      summary: List active sessions
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful response with active sessions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    characterId:
+                      type: string
+                    userId:
+                      type: string
+                    lastActivity:
+                      type: string
+                      format: date-time
+
+  /service-api/sessions/history/{characterId}:
+    get:
+      summary: Get session history for a character
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful response with session history.
+
+  /service-api/session/history/{characterId}/{sessionId}:
+    get:
+      summary: Get a specific session's history
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful response with session details.
+
+  /service-api/session/{characterId}/active:
+    get:
+      summary: Get active session state for a character
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful response with session state.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                  characterId:
+                    type: string
+                  userId:
+                    type: string
+
+  /service-api/character/commands/{characterId}:
+    get:
+      summary: List all commands executed for a character
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful response with commands history.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    command:
+                      type: string
+                    args:
+                      type: object
+                    date:
+                      type: string
+                      format: date-time
+
+  /service-api/test/setup-character-ownership:
+    post:
+      summary: Create test user-character mappings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  characterId:
+                    type: string
+      responses:
+        "200":
+          description: Ownership successfully created.
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

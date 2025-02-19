@@ -1,0 +1,23 @@
+{
+  "name": "character-animation-service",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "@types/jsonwebtoken": "^9.0.8",
+    "prettier": "^3.5.1",
+    "wrangler": "^3.109.1"
+  },
+  "dependencies": {
+    "itty-router": "^5.0.18",
+    "jose": "^5.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^11.0.5"
+  }
+}
